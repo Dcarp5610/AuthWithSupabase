@@ -4,7 +4,7 @@ import { ActivityIndicator, View } from "react-native";
 import { AuthProvider, useAuth } from "../context/AuthProvider";
 
 function RootNavigator() {
-  const { session, loading } = useAuth();
+  const { session, user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -28,7 +28,7 @@ function RootNavigator() {
       </Stack.Protected>
 
       <Stack.Protected guard={!!session}>
-        <Stack.Screen name="index" options={{ title: "Home" }} />
+        <Stack.Screen name="index" options={{ title: user?.email ?? "Home" }} />
       </Stack.Protected>
     </Stack>
   );
