@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { useAuth } from "../context/AuthProvider";
+import { getAuthErrorMessage } from "../utils/authErrors";
 
 export default function SignOut() {
   const { signOut } = useAuth();
@@ -21,11 +22,7 @@ export default function SignOut() {
 
       await signOut();
     } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Unable to sign out. Please try again later. ",
-      );
+      setError(getAuthErrorMessage(error));
     } finally {
       setLoading(false);
     }
