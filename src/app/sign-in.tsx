@@ -27,6 +27,9 @@ import { useAuth } from "../context/AuthProvider";
 import { signInSchema, type SignInFormValues } from "../schemas/authSchemas";
 import { getAuthErrorMessage } from "../utils/authErrors";
 
+// ===== Constants =====
+const PLACEHOLDER_COLOR = "#6B7280";
+
 // ===== Component =====
 export default function SignInScreen() {
   const { signIn } = useAuth();
@@ -85,6 +88,7 @@ export default function SignInScreen() {
             <TextInput
               style={[styles.input, errors.email && styles.inputError]}
               placeholder="you@example.com"
+              placeholderTextColor={PLACEHOLDER_COLOR}
               autoCapitalize="none"
               autoComplete="email"
               keyboardType="email-address"
@@ -108,6 +112,7 @@ export default function SignInScreen() {
             <TextInput
               style={[styles.input, errors.password && styles.inputError]}
               placeholder="Your password"
+              placeholderTextColor={PLACEHOLDER_COLOR}
               secureTextEntry
               autoCapitalize="none"
               autoComplete="password"
