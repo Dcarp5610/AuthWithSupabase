@@ -4,7 +4,7 @@
  * While the saved session is being restored it shows a loading screen, then it uses
  * Stack.Protected guards to decide which screens are reachable.
  * Signed-out users can only reach Sign-In and Sign-Up, and signed-in users can only
- * reach the home screen, which shows their email in the navigation bar.
+ * reach the home screen.
  */
 
 // ===== Imports =====
@@ -14,9 +14,8 @@ import { ActivityIndicator, View } from "react-native";
 import { AuthProvider, useAuth } from "../context/AuthProvider";
 
 // ===== Root Navigator =====
-// Separate from RootLayout so it can call useAuth inside the AuthProvider
 function RootNavigator() {
-  const { session, user, loading } = useAuth();
+  const { session, loading } = useAuth();
 
   // ----- Session Restore Loading Screen -----
   if (loading) {
@@ -35,16 +34,28 @@ function RootNavigator() {
 
   // ----- Protected Navigation -----
   return (
-    <Stack>
-      {/* Only reachable when signed out */}
+    <Stack
+      screenOptions={{
+        headerTransparent: false,
+        headerStyle: {
+          backgroundColor: "#FFFFFF",
+        },
+        headerTintColor: "#111827",
+        headerShadowVisible: true,
+      }}
+    >
       <Stack.Protected guard={!session}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen name="sign-up" options={{ headerShown: false }} />
       </Stack.Protected>
 
-      {/* Only reachable when signed in; the title shows the user's email */}
       <Stack.Protected guard={!!session}>
-        <Stack.Screen name="index" options={{ title: user?.email ?? "Home" }} />
+        <Stack.Screen
+          name="index"
+          options={{
+            title: "Home",
+          }}
+        />
       </Stack.Protected>
     </Stack>
   );

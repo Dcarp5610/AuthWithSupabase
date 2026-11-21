@@ -119,7 +119,7 @@ export default function HomeScreen() {
 
   // ----- Render: Screen -----
   return (
-    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+    <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
       <FlatList
         data={error ? [] : resources}
         keyExtractor={(item) => item.id.toString()}
